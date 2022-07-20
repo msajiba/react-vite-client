@@ -10,11 +10,12 @@ const Home = () => {
 
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
+    const [searchUser, setSearchUser] = useState('');
 
     useEffect(()=> {
 
         const getUsers = async ()=> {
-            const url = 'http://localhost:5000/products';
+            const url = 'https://gentle-river-60332.herokuapp.com/products';
             const {data} = await axios.get(url)
             setUsers(data);
         };
@@ -28,7 +29,7 @@ const Home = () => {
         const proceed = window.confirm('Are you sure delete');
 
         if(proceed){
-            const url = `http://localhost:5000/product/${id}`;
+            const url = `https://gentle-river-60332.herokuapp.com/product/${id}`;
             const {data} = await axios.delete(url);
             console.log(data);
 
@@ -37,7 +38,17 @@ const Home = () => {
 
             toast.success('Delete Successful');
         }
-    }
+    };
+
+    const searchUserResult = users.filter(user => {
+        
+                                    if(setSearchUser == ''){
+                                        return user;
+                                    }
+                                    if(user.firstName.toLowerCase().includes(searchUser)){
+                                        return user;
+                                    };
+                            });
 
     
 
@@ -48,7 +59,15 @@ const Home = () => {
 
              <h3 className='text-center text-info my-5'> Total user {users.length} </h3>
 
-             <Button onClick={()=> navigate('/add')}> Add New User</Button>
+             <div className="d-flex justify-content-between align-items-center">
+
+                <Button onClick={()=> navigate('/add')}>
+                     Add New User
+                </Button>
+                <input  
+                        onChange={(e)=> setSearchUser(e.target.value.toLowerCase()) }
+                        className='border' type="text" placeholder='Search user' />
+             </div>
 
                 <Table striped hover size="sm">
                     <thead>
@@ -64,7 +83,7 @@ const Home = () => {
                         
                      
                             {
-                                users.map(user =>  <UserShow 
+                                searchUserResult.map(user =>  <UserShow 
                                                         key={user._id}
                                                         user={user}
                                                         handleDeleteUser={handleDeleteUser}

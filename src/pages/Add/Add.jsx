@@ -19,7 +19,7 @@ const Add = () => {
 
         const user = {firstName, lastName, email};
 
-        const url = 'http://localhost:5000/product';
+        const url = 'https://gentle-river-60332.herokuapp.com/product';
 
         const {data} = await axios.post(url, user);
         e.target.reset();

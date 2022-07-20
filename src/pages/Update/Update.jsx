@@ -22,7 +22,7 @@ const Update = () => {
 
         const updateUser = {firstName, lastName, email};
 
-        const url = `http://localhost:5000/product/${updateId}`;
+        const url = `https://gentle-river-60332.herokuapp.com/product/${updateId}`;
 
         const res = await axios.put(url, updateUser);
         e.target.reset();
@@ -34,7 +34,7 @@ const Update = () => {
     useEffect(()=> {
 
         const getUsers = async ()=> {
-            const url = `http://localhost:5000/product/${updateId}`;
+            const url = `https://gentle-river-60332.herokuapp.com/product/${updateId}`;
             const {data} = await axios.get(url)
             setUser(data);
         };
