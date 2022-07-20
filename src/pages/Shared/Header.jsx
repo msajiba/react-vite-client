@@ -4,14 +4,11 @@ import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {Link} from 'react-router-dom';
 import auth from '../../firebase.config';
+import Loading from './Loading';
 
 const Header = () => {
 
     const [user] = useAuthState(auth);
-
-    if(user){
-        console.log('have a user', user);
-    };
 
     return (
         <>

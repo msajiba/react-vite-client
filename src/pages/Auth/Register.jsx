@@ -3,11 +3,13 @@ import { useForm } from "react-hook-form";
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.config';
 import Loading from '../Shared/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
 const Register = () => {
+
+    const navigate = useNavigate()
 
     const [
         createUserWithEmailAndPassword,
@@ -25,7 +27,17 @@ const Register = () => {
                     // const {displayName} = data;
                     const {email} = data;
                     const {password} = data;
-                    createUserWithEmailAndPassword(email, password); 
+
+
+                    if(password > 6 ){
+                        return <p> Password must be 6 letter </p>
+                    }
+                    
+                    else{
+                        createUserWithEmailAndPassword(email, password); 
+                    }
+
+                navigate('/login');
     };
 
 
